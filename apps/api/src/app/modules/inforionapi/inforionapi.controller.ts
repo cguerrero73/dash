@@ -75,7 +75,11 @@ export class InforionapiController {
       const wrk_desc = maintenanceorderheader.description?.[0];
       const wrk_equip = maintenanceorderheader.asset?.[0].id?.[0]._;
       const wrk_equip_org = maintenanceorderheader.asset?.[0].id?.[0].$.accountingEntity;
-      const wrk_person = maintenanceorderheader.estimatedresourcerequirements?.[0].labourallocation?.[0].labour?.[0].resourceid?.[0].id?.[0];
+      let wrk_person = maintenanceorderheader.estimatedresourcerequirements?.[0].labourallocation?.[0].labour?.[0].resourceid?.[0].id?.[0];
+
+      if (wrk_person._) {
+        wrk_person = wrk_person._; 
+      }
 
       console.log('BOD is a maintenanceorder', wrk_planned_hours);
 
