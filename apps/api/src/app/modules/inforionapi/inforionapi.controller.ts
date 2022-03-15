@@ -76,35 +76,43 @@ export class InforionapiController {
         });
       });
 
-      
-      const wrk_created =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].documentdatetime[0]);
-      const wrk_reported =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].reporteddatetime[0]);
-      const wrk_completed =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].actualtimeperiod[0].enddatetime[0]);
-      const wrk_start_sched =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].scheduledtimeperiod[0].startdatetime[0]);
-      const wrk_end_sched =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].scheduledtimeperiod[0].enddatetime[0]);
-      const wrk_desc =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].description[0]);
-      const wrk_equip =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].asset[0].id[0]._);
-      const wrk_equip_org =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
-          .maintenanceorderheader[0].asset[0].id[0].$.accountingEntity);
-      const wrk_person =
-        this.undef(ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+      const wrk_created = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].documentdatetime
+      );
+      const wrk_reported = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].reporteddatetime
+      );
+      const wrk_completed = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].actualtimeperiod[0].enddatetime
+      );
+      const wrk_start_sched = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].scheduledtimeperiod[0].startdatetime
+      );
+      const wrk_end_sched = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].scheduledtimeperiod[0].enddatetime
+      );
+      const wrk_desc = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].description
+      );
+      const wrk_equip = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].asset[0].id[0]._
+      );
+      const wrk_equip_org = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].asset[0].id[0].$.accountingEntity
+      );
+      const wrk_person = this.undef(
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
           .maintenanceorderheader[0].estimatedresourcerequirements[0]
-          .labourallocation[0].labour[0].resourceid[0].id[0]);
+          .labourallocation[0].labour[0].resourceid[0].id
+      );
 
       console.log('BOD is a maintenanceorder', wrk_planned_hours);
     }
@@ -116,12 +124,15 @@ export class InforionapiController {
     return { message: 'Welcome to postExportBOD!' };
   }
 
-  undef(value: any):any {
+  undef(value: any): any {
     if (value === undefined) {
       return null;
     } else {
-      return value;
+      if (value[0]) {
+        return value[0];
+      } else {
+        return value;
+      }
     }
-
   }
 }
