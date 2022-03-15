@@ -6,4 +6,5 @@ import { InforionapiService } from './inforionapi.service';
   controllers: [InforionapiController],
   providers: [InforionapiService],
 })
-export class InforionapiModule {}
+export class InforionapiModule {
+}

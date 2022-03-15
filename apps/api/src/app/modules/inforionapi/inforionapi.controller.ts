@@ -1,9 +1,18 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { ApiProduces, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import * as util from 'util';
+import { InforionapiService } from './inforionapi.service';
+
+import {Workorder} from '../workorder/workorder.entity';
+
+
 
 @Controller('inforionapi')
 export class InforionapiController {
+
+  constructor(private readonly service: InforionapiService) {}
+
+  
   @Post('ExportBOD')
   @HttpCode(200)
   @ApiProduces('application/json')
@@ -21,10 +30,10 @@ export class InforionapiController {
       const maintenanceorderheader = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0];
       const activities = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderline;
 
-      const wrk_tenant = ROOT.syncmaintenanceorder.dataarea[0].sync[0].tenantid[0];
-      const wrk_org = maintenanceorderheader.documentid[0].id[0].$.accountingEntity;
-      const wrk_code = maintenanceorderheader.documentid[0].id[0]._;
-      const wrk_status = maintenanceorderheader.status[0].reasoncode[0];
+      const wrk_tenant:string = ROOT.syncmaintenanceorder.dataarea[0].sync[0].tenantid[0];
+      const wrk_org:string = maintenanceorderheader.documentid[0].id[0].$.accountingEntity;
+      const wrk_code:string = maintenanceorderheader.documentid[0].id[0]._;
+      const wrk_status:string = maintenanceorderheader.status[0].reasoncode[0];
       const wrk_rstatus = 'x';
 
       const classification = maintenanceorderheader.classification;
@@ -50,7 +59,6 @@ export class InforionapiController {
           const userarea = element.userarea[0].property;
 
           userarea.forEach((e) => {
-            console.log('Name', e.namevalue[0].$.name);
             if (e.namevalue[0].$.name === 'eam.TotalEstimatedHours') {
               wrk_planned_hours += Number(e.namevalue[0]._);
             }
@@ -70,11 +78,44 @@ export class InforionapiController {
       const wrk_person = maintenanceorderheader.estimatedresourcerequirements?.[0].labourallocation?.[0].labour?.[0].resourceid?.[0].id?.[0];
 
       console.log('BOD is a maintenanceorder', wrk_planned_hours);
+
+      const wo= new Workorder;
+      
+      
+        wo.wrk_tenant=wrk_tenant;
+        wo.wrk_org=wrk_org;
+        wo.wrk_code= wrk_code;
+        wo.wrk_desc=wrk_desc;
+        wo.wrk_status=wrk_status;
+        wo.wrk_rstatus=wrk_rstatus;
+        wo.wrk_type=wrk_type;
+        wo.wrk_mrc=wrk_mrc;
+        wo.wrk_criticality=wrk_criticality;
+        wo.wrk_planned_hours=wrk_planned_hours;
+        wo.wrk_priority=wrk_priority;
+        wo.wrk_created=wrk_created;
+        wo.wrk_reported=wrk_reported;
+        wo.wrk_completed=wrk_completed;
+        wo.wrk_start_sched=wrk_start_sched;
+        wo.wrk_end_sched=wrk_end_sched;
+        wo.wrk_equip=wrk_equip;
+        wo.wrk_equip_org=wrk_equip_org;
+        wo.wrk_person=wrk_person;
+        wo.wrk_imported=wrk_created;
+      
+  
+      this.service.createWO(wo);
+  
+      
+
     }
 
     if (body.employeeworktime) {
       console.log('BOD is a employeeworktime');
     }
+
+   
+
 
     return { message: 'Welcome to postExportBOD!' };
   }
