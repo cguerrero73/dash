@@ -23,7 +23,7 @@ export class InforionapiController {
   })
   @ApiBody({})
   postExportBOD(@Body() body): { message: string } {
-    console.log('postExportBOD', util.inspect(body, false, null, true /* enable colors */));
+    // console.log('postExportBOD', util.inspect(body, false, null, true /* enable colors */));
 
     const ROOT = body;
     if (ROOT.syncmaintenanceorder) {
@@ -81,7 +81,7 @@ export class InforionapiController {
         wrk_person = wrk_person._; 
       }
 
-      console.log('BOD is a maintenanceorder', wrk_planned_hours);
+      console.log('BOD is a maintenanceorder', wrk_tenant,wrk_org,wrk_code);
 
       const wo= new Workorder;
       
