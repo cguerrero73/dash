@@ -59,13 +59,13 @@ export class InforionapiController {
 
       const wrk_created = maintenanceorderheader.documentdatetime[0];
       const wrk_reported = maintenanceorderheader.reporteddatetime[0];
-      const wrk_completed = maintenanceorderheader.actualtimeperiod[0]?.enddatetime[0];
-      const wrk_start_sched = maintenanceorderheader.scheduledtimeperiod[0]?.startdatetime[0];
-      const wrk_end_sched = maintenanceorderheader.scheduledtimeperiod[0]?.enddatetime[0];
-      const wrk_desc = maintenanceorderheader.description[0];
-      const wrk_equip = maintenanceorderheader.asset[0].id[0]._;
-      const wrk_equip_org = maintenanceorderheader.asset[0].id[0].$.accountingEntity;
-      const wrk_person = maintenanceorderheader.estimatedresourcerequirements[0]?.labourallocation[0]?.labour[0]?.resourceid[0]?.id[0];
+      const wrk_completed = maintenanceorderheader.actualtimeperiod?.[0].enddatetime[0];
+      const wrk_start_sched = maintenanceorderheader.scheduledtimeperiod?.[0].startdatetime[0];
+      const wrk_end_sched = maintenanceorderheader.scheduledtimeperiod?.[0].enddatetime[0];
+      const wrk_desc = maintenanceorderheader.description?.[0];
+      const wrk_equip = maintenanceorderheader.asset?.[0].id?.[0]._;
+      const wrk_equip_org = maintenanceorderheader.asset?.[0].id?.[0].$.accountingEntity;
+      const wrk_person = maintenanceorderheader.estimatedresourcerequirements?.[0].labourallocation?.[0].labour?.[0].resourceid?.[0].id?.[0];
 
       console.log('BOD is a maintenanceorder', wrk_planned_hours);
     }
