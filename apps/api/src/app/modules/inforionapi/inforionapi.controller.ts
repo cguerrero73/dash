@@ -57,7 +57,7 @@ activities.forEach(element => {
 
   userarea.forEach(e => {
     console.log('Name', e.namevalue[0].$.name);
-    if (e.namevalue[0].$.name === 'TotalEstimatedHours'){
+    if (e.namevalue[0].$.name === 'eam.TotalEstimatedHours'){
       wrk_planned_hours += e.namevalue[0]._;
     }
 
