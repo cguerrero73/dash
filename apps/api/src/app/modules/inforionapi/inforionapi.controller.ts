@@ -20,7 +20,7 @@ export class InforionapiController {
       util.inspect(body, false, null, true /* enable colors */)
     );
     
-    const ROOT=body.body;
+    const ROOT=body;
     if (ROOT.syncmaintenanceorder) {
 
 
