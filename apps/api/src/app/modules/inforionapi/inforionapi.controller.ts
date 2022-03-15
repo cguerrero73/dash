@@ -1,7 +1,11 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import {ApiProduces,ApiResponse,ApiConsumes,ApiBody } from '@nestjs/swagger';
+import {
+  ApiProduces,
+  ApiResponse,
+  ApiConsumes,
+  ApiBody,
+} from '@nestjs/swagger';
 import * as util from 'util';
-
 
 @Controller('inforionapi')
 export class InforionapiController {
@@ -19,65 +23,89 @@ export class InforionapiController {
       'postExportBOD',
       util.inspect(body, false, null, true /* enable colors */)
     );
-    
-    const ROOT=body;
+
+    const ROOT = body;
     if (ROOT.syncmaintenanceorder) {
+      const wrk_tenant =
+        ROOT.syncmaintenanceorder.dataarea[0].sync[0].tenantid[0];
+      const wrk_org =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].documentid[0].id[0].$.accountingEntity;
+      const wrk_code =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].documentid[0].id[0]._;
+      const wrk_status =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].status[0].reasoncode[0];
+      const wrk_rstatus = 'x';
 
+      const classification =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].classification;
+      let wrk_type = '';
+      let wrk_mrc = '';
 
-const wrk_tenant= ROOT.syncmaintenanceorder.dataarea[0].sync[0].tenantid[0];
-const wrk_org=ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].documentid[0].id[0].$.accountingEntity;
-const wrk_code=ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].documentid[0].id[0]._;
-const wrk_status=ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].status[0].reasoncode[0];
-const wrk_rstatus='x';
+      classification.forEach((element) => {
+        if (element.codes[0].code[0].$.listID === 'WorkType') {
+          wrk_type = element.codes[0].code[0]._;
+        }
 
-const classification = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].classification;
-let wrk_type = '';
-let wrk_mrc = '';
+        if (element.codes[0].code[0].$.listID === 'Departments') {
+          wrk_mrc = element.codes[0].code[0]._;
+        }
+      });
 
-classification.forEach(element => {
-  if (element.codes[0].code[0].$.listID === 'WorkType'){
-     wrk_type=element.codes[0].code[0]._;
-  }
+      const wrk_priority =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].prioritycode[0];
+      const wrk_criticality = 'x';
 
-  if (element.codes[0].code[0].$.listID === 'Departments'){
-    wrk_mrc=element.codes[0].code[0]._;
- }
-  
-});
+      const activities =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderline;
+      let wrk_planned_hours = 0;
 
-const wrk_priority=ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].prioritycode[0];
-const wrk_criticality='x';
+      activities.forEach((element) => {
+        const userarea = element.userarea[0].property;
 
-const activities = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderline;
-let wrk_planned_hours=0;
+        userarea.forEach((e) => {
+          console.log('Name', e.namevalue[0].$.name);
+          if (e.namevalue[0].$.name === 'eam.TotalEstimatedHours') {
+            wrk_planned_hours += Number(e.namevalue[0]._);
+          }
+        });
+      });
 
-activities.forEach(element => {
-
-  const userarea = element.userarea[0].property
-
-  userarea.forEach(e => {
-    console.log('Name', e.namevalue[0].$.name);
-    if (e.namevalue[0].$.name === 'eam.TotalEstimatedHours'){
-      wrk_planned_hours += Number(e.namevalue[0]._);
-    }
-
-  })
-})
-
-// const wrk_created=;
-// const wrk_reported=;
-// const wrk_completed=;
-// const wrk_start_sched=;
-// const wrk_end_sched=;
-// const wrk_desc=;
-// const wrk_equip=;
-// const wrk_equip_org=;
-// const wrk_person=;
-
+      const wrk_created =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].documentdatetime[0];
+      const wrk_reported =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].reporteddatetime[0];
+      const wrk_completed =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].actualtimeperiod[0].enddatetime[0];
+      const wrk_start_sched =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].scheduledtimeperiod[0].startdatetime[0];
+      const wrk_end_sched =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].scheduledtimeperiod[0].enddatetime[0];
+      const wrk_desc =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].description[0];
+      const wrk_equip =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].asset[0].id[0]._;
+      const wrk_equip_org =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].asset[0].id[0].$.accountingEntity;
+      const wrk_person =
+        ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0]
+          .maintenanceorderheader[0].estimatedresourcerequirements[0]
+          .labourallocation[0].labour[0].resourceid[0].id[0];
 
       console.log('BOD is a maintenanceorder', wrk_planned_hours);
-
-
     }
 
     if (body.employeeworktime) {
