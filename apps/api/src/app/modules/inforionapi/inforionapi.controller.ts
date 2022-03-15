@@ -53,7 +53,7 @@ let wrk_planned_hours=0;
 
 activities.forEach(element => {
 
-  const userarea = activities.userarea[0].property
+  const userarea = element.userarea[0].property
 
   userarea.forEach(e => {
     if (e.namevalue[0].$.name === 'TotalEstimatedHours'){
