@@ -48,7 +48,7 @@ classification.forEach(element => {
 const wrk_priority=ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].prioritycode[0];
 const wrk_criticality='x';
 
-const activities = ROOT.dataarea[0].maintenanceorder[0].maintenanceorderline;
+const activities = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderline;
 let wrk_planned_hours=0;
 
 activities.forEach(element => {
