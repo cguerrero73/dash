@@ -46,6 +46,7 @@ export class InforionapiController {
 
       let wrk_planned_hours = 0;
 
+      console.log('ACTIVITIES:', activities);
       activities.forEach((element) => {
         const userarea = element.userarea[0].property;
 
