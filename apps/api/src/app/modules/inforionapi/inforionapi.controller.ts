@@ -19,9 +19,19 @@ export class InforionapiController {
       'postExportBOD',
       util.inspect(body, false, null, true /* enable colors */)
     );
+    
+    const ROOT=body.body;
+    if (ROOT.syncmaintenanceorder) {
 
-    if (body.maintenanceorder) {
+
+      const org = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].documentid[0].id[0].$.accountingEntity;
+
+
       console.log('BOD is a maintenanceorder');
+      console.log('Org:', org);
+
+
+      ROOT.syncmaintenanceorder
     }
 
     if (body.employeeworktime) {
