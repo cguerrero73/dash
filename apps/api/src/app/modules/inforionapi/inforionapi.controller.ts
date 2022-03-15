@@ -56,6 +56,7 @@ activities.forEach(element => {
   const userarea = element.userarea[0].property
 
   userarea.forEach(e => {
+    console.log('Name', e.namevalue[0].$.name);
     if (e.namevalue[0].$.name === 'TotalEstimatedHours'){
       wrk_planned_hours += e.namevalue[0]._;
     }
