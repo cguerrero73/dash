@@ -21,7 +21,6 @@ export class InforionapiController {
       const maintenanceorderheader = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0];
       const activities = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderline;
 
-
       const wrk_tenant = ROOT.syncmaintenanceorder.dataarea[0].sync[0].tenantid[0];
       const wrk_org = maintenanceorderheader.documentid[0].id[0].$.accountingEntity;
       const wrk_code = maintenanceorderheader.documentid[0].id[0]._;
@@ -46,18 +45,18 @@ export class InforionapiController {
 
       let wrk_planned_hours = 0;
 
-      console.log('ACTIVITIES:', activities);
-      activities.forEach((element) => {
-        const userarea = element.userarea[0].property;
+      if (activities) {
+        activities.forEach((element) => {
+          const userarea = element.userarea[0].property;
 
-        userarea.forEach((e) => {
-          console.log('Name', e.namevalue[0].$.name);
-          if (e.namevalue[0].$.name === 'eam.TotalEstimatedHours') {
-            wrk_planned_hours += Number(e.namevalue[0]._);
-          }
+          userarea.forEach((e) => {
+            console.log('Name', e.namevalue[0].$.name);
+            if (e.namevalue[0].$.name === 'eam.TotalEstimatedHours') {
+              wrk_planned_hours += Number(e.namevalue[0]._);
+            }
+          });
         });
-      });
-
+      }
 
       const wrk_priority = maintenanceorderheader.prioritycode?.[0];
       const wrk_created = maintenanceorderheader.documentdatetime[0];
