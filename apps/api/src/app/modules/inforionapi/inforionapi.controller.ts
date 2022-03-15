@@ -77,7 +77,7 @@ export class InforionapiController {
       const wrk_equip_org = maintenanceorderheader.asset?.[0].id?.[0].$.accountingEntity;
       let wrk_person = maintenanceorderheader.estimatedresourcerequirements?.[0].labourallocation?.[0].labour?.[0].resourceid?.[0].id?.[0];
 
-      if (wrk_person._) {
+      if (wrk_person && wrk_person._) {
         wrk_person = wrk_person._; 
       }
 
