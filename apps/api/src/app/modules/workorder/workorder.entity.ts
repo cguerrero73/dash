@@ -52,9 +52,6 @@ export class Workorder extends BaseEntity {
   @Column({ type: 'timestamp', name: 'wrk_end_sched', nullable: true })
   wrk_end_sched: Date;
 
-  @Column({ type: 'timestamp', name: 'wrk_imported', nullable: false })
-  wrk_imported: Date;
-
   @Column({ type: 'varchar', length: 80, name: 'wrk_desc', nullable: false })
   wrk_desc: string;
 

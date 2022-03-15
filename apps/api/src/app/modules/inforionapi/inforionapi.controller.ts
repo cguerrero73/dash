@@ -101,7 +101,6 @@ export class InforionapiController {
         wo.wrk_equip=wrk_equip;
         wo.wrk_equip_org=wrk_equip_org;
         wo.wrk_person=wrk_person;
-        wo.wrk_imported=wrk_created;
       
   
       this.service.createWO(wo);
