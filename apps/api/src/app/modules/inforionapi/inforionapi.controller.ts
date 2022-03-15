@@ -32,17 +32,37 @@ const wrk_rstatus='x';
 
 const classification = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].classification;
 let wrk_type = '';
+let wrk_mrc = '';
+
 classification.forEach(element => {
   if (element.codes[0].code[0].$.listID === 'WorkType'){
      wrk_type=element.codes[0].code[0]._;
   }
+
+  if (element.codes[0].code[0].$.listID === 'Departments'){
+    wrk_mrc=element.codes[0].code[0]._;
+ }
   
 });
 
-// const wrk_priority=;
-// const wrk_criticality=;
-// const wrk_mrc=;
-// const wrk_planned_hours=;
+const wrk_priority=ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].prioritycode[0];
+const wrk_criticality='x';
+
+const activities = ROOT.dataarea[0].maintenanceorder[0].maintenanceorderline;
+let wrk_planned_hours=0;
+
+activities.forEach(element => {
+
+  const userarea = activities.userarea[0].property
+
+  userarea.forEach(e => {
+    if (e.namevalue[0].$.name === 'TotalEstimatedHours'){
+      wrk_planned_hours += e.namevalue[0]._;
+    }
+
+  })
+})
+
 // const wrk_created=;
 // const wrk_reported=;
 // const wrk_completed=;
@@ -54,7 +74,7 @@ classification.forEach(element => {
 // const wrk_person=;
 
 
-      console.log('BOD is a maintenanceorder', wrk_type);
+      console.log('BOD is a maintenanceorder', wrk_planned_hours);
 
 
     }
