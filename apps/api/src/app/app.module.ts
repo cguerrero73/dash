@@ -18,6 +18,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(InforIonMiddleware)
-      .forRoutes({ path: 'inforionapi/*', method: RequestMethod.POST});
+      .forRoutes({ path: '*', method: RequestMethod.POST});
   }
 }
