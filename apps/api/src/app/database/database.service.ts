@@ -26,7 +26,7 @@ export const databaseProviders = [
         },
         entities: getMetadataArgsStorage().tables.map((tbl) => tbl.target),
         migrations: [__dirname + '/migrations/*{.ts,.js}'],
-        logging: true,
+        logging: false,
         namingStrategy: new CustomNamingStrategy()
       } as ConnectionOptions;
     },
