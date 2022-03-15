@@ -9,6 +9,6 @@ export class InforionapiService {
     const woRepository = getRepository(Workorder); // you can also get it via getConnection().getRepository() or getManager().getRepository()
     // const _wo = woRepository.findOne(1);
     // user.name = "Umed";
-     woRepository.upsert(wo, ['wrk_org','wrk_code']);
+     woRepository.upsert(wo, ['wrk_tenant','wrk_org','wrk_code']);
   }
 }
