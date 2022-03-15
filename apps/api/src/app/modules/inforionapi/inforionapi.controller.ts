@@ -18,13 +18,17 @@ export class InforionapiController {
 
     const ROOT = body;
     if (ROOT.syncmaintenanceorder) {
+      const maintenanceorderheader = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0];
+      const activities = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderline;
+
+
       const wrk_tenant = ROOT.syncmaintenanceorder.dataarea[0].sync[0].tenantid[0];
-      const wrk_org = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].documentid[0].id[0].$.accountingEntity;
-      const wrk_code = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].documentid[0].id[0]._;
-      const wrk_status = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].status[0].reasoncode[0];
+      const wrk_org = maintenanceorderheader.documentid[0].id[0].$.accountingEntity;
+      const wrk_code = maintenanceorderheader.documentid[0].id[0]._;
+      const wrk_status = maintenanceorderheader.status[0].reasoncode[0];
       const wrk_rstatus = 'x';
 
-      const classification = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].classification;
+      const classification = maintenanceorderheader.classification;
       let wrk_type = '';
       let wrk_mrc = '';
 
@@ -38,10 +42,8 @@ export class InforionapiController {
         }
       });
 
-      const wrk_priority = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0].prioritycode[0];
       const wrk_criticality = 'x';
 
-      const activities = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderline;
       let wrk_planned_hours = 0;
 
       activities.forEach((element) => {
@@ -55,8 +57,8 @@ export class InforionapiController {
         });
       });
 
-      const maintenanceorderheader = ROOT.syncmaintenanceorder.dataarea[0].maintenanceorder[0].maintenanceorderheader[0];
 
+      const wrk_priority = maintenanceorderheader.prioritycode?.[0];
       const wrk_created = maintenanceorderheader.documentdatetime[0];
       const wrk_reported = maintenanceorderheader.reporteddatetime[0];
       const wrk_completed = maintenanceorderheader.actualtimeperiod?.[0].enddatetime[0];
