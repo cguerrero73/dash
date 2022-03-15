@@ -70,10 +70,6 @@ export class ReadWorkorderDto {
   readonly wrk_end_sched: Date;
 
   @Expose()
-  @IsDate()
-  readonly wrk_imported: Date;
-    
-  @Expose()
   @IsString()
   readonly wrk_desc: string;
 
