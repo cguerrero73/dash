@@ -4,6 +4,7 @@ import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, U
 export class Workorder extends BaseEntity {
 
   @PrimaryGeneratedColumn('increment', { name: 'wrk_id' })
+  
   wrk_id: number;
 
   @Column({ type: 'varchar', length: 15, name: 'wrk_tenant', nullable: false })
